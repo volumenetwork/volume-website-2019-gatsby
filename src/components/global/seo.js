@@ -26,15 +26,6 @@ export const fragment = graphql`
       yoast_wpseo_social_defaults {
         twitter_card_type
         twitter_site
-        og_default_image {
-          localFile {
-            childImageSharp {
-              original {
-                src
-              }
-            }
-          }
-        }
       }
     }
   }
@@ -47,22 +38,20 @@ function SEO({
   yoast_wpseo_facebook_title: yoastFacebookTitle,
   yoast_wpseo_facebook_description: yoastFacebookDescription,
   yoast_wpseo_facebook_type: yoastFacebookType,
-  yoast_wpseo_facebook_image: yoastFacebookImage,
   yoast_wpseo_twitter_title: yoastTwitterTitle,
   yoast_wpseo_twitter_description: yoastTwitterDescription,
   yoast_wpseo_canonical: yoastCanonical,
   yoast_wpseo_company_name: yoastCompanyName,
-  yoast_wpseo_social_defaults
+  yoast_wpseo_social_defaults: yoastWpSeoSocialDefaults
 }) {
   const metaTitle = yoastTitle || `${title} | ${yoastCompanyName}`
   const metaDescription = yoastDescription || ''
   const facebookTitle = yoastFacebookTitle || yoastTitle || title
   const facebookDescription = yoastFacebookDescription || yoastDescription || ''
   const facebookType = yoastFacebookType || 'website'
-  const facebookImage = yoastFacebookImage ? yoastFacebookImage.localFile.childImageSharp.original.src : yoast_wpseo_social_defaults.og_default_image.localFile.childImageSharp.original.src
   const twitterTitle = yoastTwitterTitle || yoastTitle || title
   const twitterDescription = yoastTwitterDescription || yoastDescription || ''
-  const twitterHandle = yoast_wpseo_social_defaults.twitter_site || ''
+  const twitterHandle = yoastWpSeoSocialDefaults.twitter_site || ''
   return (
     <Helmet
       title={metaTitle}
@@ -78,10 +67,6 @@ function SEO({
         {
           property: `og:description`,
           content: facebookDescription
-        },
-        {
-          property: `og:image`,
-          content: facebookImage
         },
         {
           property: `og:type`,
