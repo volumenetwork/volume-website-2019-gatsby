@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { graphql } from 'gatsby'
 import styled from 'styled-components'
 import Img from 'gatsby-image'
+import { Waypoint } from 'react-waypoint'
+import { motion } from 'framer-motion'
+import { staggeredFadeInUp } from '../../animation/animations'
 
 export const fragment = graphql`
   fragment ContactFragment on WordPressAcf_contact_details {
@@ -27,34 +30,40 @@ export const fragment = graphql`
   }
 `
 
-const Contact = ({ offices, email_addresses: emailAddresses, map, google_maps_link: googleMapsLink }) => (
-  <Outer>
-    <Inner className="container">
-      <Left>
-        <LocationsList className="container">
-          {offices.map((location, i) => (
-            <Location key={i}>
-              <Title>{location.title}</Title>
-              {location.address && <p dangerouslySetInnerHTML={{ __html: location.address }} />}
-            </Location>
-          ))}
-        </LocationsList>
-        <EmailAddresses>
-          {emailAddresses.map((email, i) => (
-            <EmailAddress key={i}>
-              {email.title}: <a href={`mailto:${email.email_address}`}>{email.email_address}</a>
-            </EmailAddress>
-          ))}
-        </EmailAddresses>
-      </Left>
-      <Right>
-        <a href={googleMapsLink} target="_blank" rel="noopener noreferrer">
-          <Img fluid={map.localFile.childImageSharp.fluid} />
-        </a>
-      </Right>
-    </Inner>
-  </Outer>
-)
+const Contact = ({ offices, email_addresses: emailAddresses, map, google_maps_link: googleMapsLink }) => {
+  const [animation, setAnimation] = useState(undefined)
+  const handleAnimation = () => setAnimation(true)
+
+  return (
+    <Outer>
+      <Waypoint onEnter={() => handleAnimation()} scrollableAncestor="window" bottomOffset="10%" />
+      <Inner className="container" animate={animation ? 'visible' : 'hidden'} variants={staggeredFadeInUp.parent}>
+        <Left>
+          <LocationsList className="container">
+            {offices.map((location, i) => (
+              <Location key={i} variants={staggeredFadeInUp.child}>
+                <Title>{location.title}</Title>
+                {location.address && <p dangerouslySetInnerHTML={{ __html: location.address }} />}
+              </Location>
+            ))}
+          </LocationsList>
+          <EmailAddresses className="container">
+            {emailAddresses.map((email, i) => (
+              <EmailAddress key={i} variants={staggeredFadeInUp.child}>
+                {email.title}: <a href={`mailto:${email.email_address}`}>{email.email_address}</a>
+              </EmailAddress>
+            ))}
+          </EmailAddresses>
+        </Left>
+        <Right>
+          <motion.a href={googleMapsLink} target="_blank" rel="noopener noreferrer" variants={staggeredFadeInUp.child}>
+            <Img fluid={map.localFile.childImageSharp.fluid} />
+          </motion.a>
+        </Right>
+      </Inner>
+    </Outer>
+  )
+}
 
 export default Contact
 
@@ -66,7 +75,7 @@ const Outer = styled.section`
   }
 `
 
-const Inner = styled.div`
+const Inner = styled(motion.div)`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -130,7 +139,7 @@ const LocationsList = styled.div`
   }
 `
 
-const Location = styled.div`
+const Location = styled(motion.div)`
   margin: 3rem 0;
 
   @media (max-width: 1100px) {
@@ -158,7 +167,7 @@ const EmailAddresses = styled.div`
   margin: 6rem 0 4rem;
 `
 
-const EmailAddress = styled.p`
+const EmailAddress = styled(motion.p)`
   && {
     font-size: 2.2rem;
     line-height: 1.5;

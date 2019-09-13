@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -22,7 +22,7 @@ const variants = {
   enter: {
     opacity: 1,
     transition: {
-      duration: 1,
+      duration: 1.5,
       when: 'beforeChildren'
     }
   },
@@ -84,7 +84,6 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const Layout = ({ children, location }) => {
-  const ref = useRef(null)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -105,7 +104,6 @@ const Layout = ({ children, location }) => {
             {children}
           </motion.main>
         </AnimatePresence>
-        <div id="modal" ref={ref} />
         <Footer />
       </>
     </ThemeProvider>

@@ -18,23 +18,27 @@ const Portal = ({ children }) => {
 }
 
 const Modal = ({ children, handleModalClose, modalActive, ref }) => (
-  <AnimatePresence>
+  <>
     {typeof window !== 'undefined' && (
-      <Portal ref={ref}>
+      <>
         {modalActive && (
-          <ModalOuter>
-            <ModalInner initial="hidden" animate={modalActive ? 'visible' : 'hidden'} exit="exit" variants={fadeInUp}>
-              <Close onClick={handleModalClose} whileHover={{ rotate: 90, scale: 1.2 }}>
-                <CloseIcon />
-              </Close>
-              {children}
-            </ModalInner>
-            <ModalBackground onClick={handleModalClose} initial="hidden" animate={modalActive ? 'visible' : 'hidden'} exit="exit" variants={fadeIn} />
-          </ModalOuter>
+          <Portal ref={ref}>
+            <AnimatePresence>
+              <ModalOuter>
+                <ModalInner initial="hidden" animate={modalActive ? 'visible' : 'hidden'} exit="exit" variants={fadeInUp}>
+                  <Close onClick={handleModalClose} whileHover={{ rotate: 90, scale: 1.2 }}>
+                    <CloseIcon />
+                  </Close>
+                  {children}
+                </ModalInner>
+                <ModalBackground onClick={handleModalClose} initial="hidden" animate={modalActive ? 'visible' : 'hidden'} exit="exit" variants={fadeIn} />
+              </ModalOuter>
+            </AnimatePresence>
+          </Portal>
         )}
-      </Portal>
+      </>
     )}
-  </AnimatePresence>
+  </>
 )
 
 export default Modal

@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { graphql } from 'gatsby'
 import styled from 'styled-components'
+import { Waypoint } from 'react-waypoint'
+import { motion } from 'framer-motion'
+import { fadeInUp } from '../../animation/animations'
 
 import TabTitle from './tab-title'
 import TabTitleSelect from './tab-titles-select'
@@ -66,11 +69,13 @@ export const fragment = graphql`
 
 const Tabs = ({ title, description, tabs, background_colour: backgroundColour, section_id: sectionId }) => {
   const [tabActive, setTabActive] = useState(0)
+  const [animation, setAnimation] = useState(false)
+  const handleActive = () => setAnimation(true)
 
   return (
-    <Outer className={backgroundColour === 'white' ? 'background-white' : 'background-blue'}>
-      <Anchor id={sectionId} />
-      <Inner className="container">
+    <Outer className={backgroundColour === 'white' ? 'background-white' : 'background-blue'} id={sectionId}>
+      <Waypoint onEnter={() => handleActive()} scrollableAncestor="window" bottomOffset="30%" />
+      <Inner className="container" animate={animation ? 'visible' : 'hidden'} variants={fadeInUp}>
         <Title>{title}</Title>
         {description && <Description>{description}</Description>}
         <TabTitles>
@@ -92,13 +97,6 @@ const Tabs = ({ title, description, tabs, background_colour: backgroundColour, s
 }
 
 export default Tabs
-
-const Anchor = styled.div`
-  position: absolute;
-  top: -800px;
-  width: 1px;
-  height: 1px;
-`
 
 const Outer = styled.section`
   position: relative;
@@ -126,7 +124,7 @@ const Outer = styled.section`
   }
 `
 
-const Inner = styled.div`
+const Inner = styled(motion.div)`
   max-width: 122rem;
 `
 

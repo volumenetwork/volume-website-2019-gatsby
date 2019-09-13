@@ -15,8 +15,9 @@ const MediaRow = ({ content }) => {
 
   const handleActive = () => setAnimation(true)
   return (
-    <Waypoint onEnter={() => handleActive()} scrollableAncestor="window" bottomOffset="10%">
+    <>
       <Row id={content.section_id}>
+        <Waypoint onEnter={() => handleActive()} scrollableAncestor="window" bottomOffset="10%" />
         <Inner className="container">
           <Text animate={animation ? 'visible' : 'hidden'} variants={fadeInUpDelayed}>
             <Title dangerouslySetInnerHTML={{ __html: content.text.box_title }} />
@@ -53,7 +54,7 @@ const MediaRow = ({ content }) => {
           </BackgroundSymbol>
         )}
       </Row>
-    </Waypoint>
+    </>
   )
 }
 export default MediaRow

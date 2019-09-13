@@ -7,7 +7,7 @@ const HeaderNavigation = ({ data }) => (
     <ul>
       {data.wordpressWpApiMenusMenusItems.items.map((item, i) => (
         <li key={i}>
-          <Link activeClassName="active" to={`/${item.object_slug}`} exit={{ length: 1 }} entry={{ length: 1 }}>
+          <Link activeClassName="active" to={`/${item.object_slug}`}>
             {item.title}
           </Link>
         </li>
@@ -57,11 +57,29 @@ const Nav = styled.nav`
     font-size: 1.6rem;
     text-decoration: none;
     color: #fff;
-    padding-bottom: 0.8rem;
-    border-bottom: 0.2rem solid transparent;
+
+    &:hover {
+      &:after {
+        transform: scaleX(1);
+      }
+    }
+
+    &:after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: #fff;
+      transform: scaleX(0);
+      transform-origin: center left;
+      transition: transform 0.3s cubic-bezier(1, 0, 0, 1);
+      margin-top: 0.5rem;
+    }
 
     &.active {
-      border-bottom: 0.2rem solid #fff;
+      &:after {
+        transform: scaleX(1);
+      }
     }
   }
 `

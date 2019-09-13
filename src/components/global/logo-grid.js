@@ -9,6 +9,7 @@ export const fragment = graphql`
   fragment LogoGridFragment on WordPressAcf_logo_grid {
     id
     title
+    section_id
     intro
     logos {
       alt
@@ -23,7 +24,7 @@ export const fragment = graphql`
   }
 `
 
-const LogoGrid = ({ title, intro, logos }) => {
+const LogoGrid = ({ title, intro, logos, section_id: sectionID }) => {
   const [animation, setAnimation] = useState(undefined)
 
   const handleAnimation = () => {
@@ -31,7 +32,7 @@ const LogoGrid = ({ title, intro, logos }) => {
   }
 
   return (
-    <Outer>
+    <Outer id={sectionID}>
       <Waypoint onEnter={() => handleAnimation()} scrollableAncestor="window" bottomOffset="30%" />
       <motion.div className="container" animate={animation ? 'visible' : 'hidden'} variants={staggeredFadeInUp.parent}>
         {title && <Title variants={staggeredFadeInUp.child}>{title}</Title>}

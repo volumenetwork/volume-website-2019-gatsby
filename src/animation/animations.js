@@ -12,7 +12,10 @@ export const slideInLeft = {
     x: '100%'
   },
   exit: {
-    x: '100%'
+    x: '100%',
+    transition: {
+      delay: 0.5
+    }
   }
 }
 
@@ -30,6 +33,46 @@ export const fadeIn = {
   },
   exit: {
     opacity: 0
+  }
+}
+
+export const delay = {
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 1,
+      delay: 1
+    }
+  },
+  hidden: {
+    opacity: 1
+  },
+  exit: {
+    opacity: 1
+  }
+}
+
+export const maskOutRight = {
+  visible: {
+    x: 1,
+    transition: {
+      type: 'tween',
+      duration: 5
+    }
+  },
+  hidden: {
+    x: 0,
+    transition: {
+      type: 'tween',
+      duration: 5
+    }
+  },
+  exit: {
+    x: 0,
+    transition: {
+      type: 'tween',
+      duration: 5
+    }
   }
 }
 
@@ -52,7 +95,9 @@ export const fadeInLong = {
 
 export const drawLine = {
   visible: {
-    width: '10rem',
+    scaleX: 1,
+    x: '12rem',
+    y: '50%',
     transition: {
       type: 'tween',
       duration: 0.2,
@@ -60,10 +105,14 @@ export const drawLine = {
     }
   },
   hidden: {
-    width: 0
+    scaleX: 0,
+    x: '12rem',
+    y: '50%'
   },
   exit: {
-    width: 0
+    scaleX: 0,
+    x: '12rem',
+    y: '50%'
   }
 }
 
@@ -84,7 +133,7 @@ export const fadeInUp = {
   },
   exit: {
     opacity: 0,
-    y: -50,
+    y: 50,
     transition: {
       type: 'spring',
       damping: 30,
@@ -180,20 +229,29 @@ export const fadeInSlowDelayed = {
   }
 }
 
-export const header = {
+export const fadeInLeft = {
   visible: {
     opacity: 1,
+    x: 0,
     transition: {
-      type: 'tween',
-      duration: 0.6,
-      ease: 'linear',
-      delay: 0.3
+      type: 'spring',
+      damping: 30,
+      mass: 1,
+      stiffness: 100
     }
   },
   hidden: {
-    opacity: 0
+    opacity: 0,
+    x: -20
   },
   exit: {
-    opacity: 0
+    opacity: 0,
+    x: -20,
+    transition: {
+      type: 'spring',
+      damping: 30,
+      mass: 1,
+      stiffness: 100
+    }
   }
 }

@@ -196,8 +196,17 @@ const Logos = styled.div`
   align-items: center;
   margin-top: 2rem;
 
+  @media (max-width: 650px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   img {
-    margin: 0 35px 0 0;
+    margin: 0 3.5rem 0 0;
+
+    @media (max-width: 650px) {
+      margin: 1.5rem 0;
+    }
 
     &:last-child {
       margin: 0;

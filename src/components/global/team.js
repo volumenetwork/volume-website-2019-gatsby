@@ -13,6 +13,7 @@ export const fragment = graphql`
   fragment TeamFragment on WordPressAcf_team {
     id
     title
+    hide
     people {
       biography
       name
@@ -30,7 +31,7 @@ export const fragment = graphql`
   }
 `
 
-const Team = ({ title, people }) => {
+const Team = ({ title, people, hide }) => {
   const [modalActive, setModalActive] = useState(false)
   const [modalPhoto, setModalPhoto] = useState(undefined)
   const [modalName, setModalName] = useState(undefined)
@@ -56,7 +57,7 @@ const Team = ({ title, people }) => {
 
   return (
     <>
-      <Outer className="Outer">
+      <Outer className="Outer" data-hidden={hide ? 'hidden' : 'visible'}>
         <Waypoint onEnter={() => handleAnimation()} scrollableAncestor="window" bottomOffset="10%" />
         <Inner className="container">
           <Title>{title}</Title>
@@ -100,6 +101,10 @@ export default Team
 const Outer = styled.section`
   padding: 10rem 0;
   background: linear-gradient(0deg, ${props => props.theme.colours.gradientEnd} 0%, ${props => props.theme.colours.gradientStart} 100%);
+
+  &[data-hidden='hidden'] {
+    display: none;
+  }
 
   @media (max-width: 750px) {
     padding: 5rem 0;

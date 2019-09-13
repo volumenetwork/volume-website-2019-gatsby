@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'gatsby'
 import { of, fromEvent, animationFrameScheduler } from 'rxjs'
-import { distinctUntilChanged, filter, map, pairwise, switchMap, tap, throttleTime } from 'rxjs/operators'
+import { distinctUntilChanged, filter, map, pairwise, switchMap, throttleTime } from 'rxjs/operators'
 import { useObservable } from 'rxjs-hooks'
 
 import HeaderNavigation from './header-navigation'
@@ -31,15 +31,13 @@ const watchScrollPosition = () =>
     throttleTime(0, animationFrameScheduler),
     map(() => window.pageYOffset),
     pairwise(),
-    map(([previous, current]) => (current === 0 ? 'Top' : 'NotTop')),
-    distinctUntilChanged(),
-    tap(console.log)
+    map(([previous, current]) => (current < 10 ? 'Top' : 'NotTop')),
+    distinctUntilChanged()
   )
 
 const Header = () => {
   const scrollDirection = useObservable(watchScrollDirection, 'Up')
   const scrollTop = useObservable(watchScrollPosition, 'Top')
-  // console.log('TCL: Header -> scrollTop', scrollTop)
   const [mobileNavActive, setMobileNavActive] = useState(undefined)
 
   const handleOpenNav = () => {
@@ -52,8 +50,8 @@ const Header = () => {
 
   return (
     <>
-      <MobileNavIcon onClick={() => handleOpenNav()} />
-      <HeaderOuter className={`${scrollDirection === 'Down' && 'hidden'}`} data-top={scrollTop === 'Top' ? 'top' : 'not-top'}>
+      <MobileNavIcon onClick={() => handleOpenNav()} className={mobileNavActive ? 'hidden' : 'visisble'} />
+      <HeaderOuter className={`${scrollDirection === 'Down' ? 'hidden' : 'visible'}`} data-top={scrollTop === 'Top' ? 'top' : 'not-top'}>
         <HeadingLink to="/" onClick={() => handleCloseNav()}>
           <Logo />
         </HeadingLink>
@@ -76,16 +74,29 @@ const Header = () => {
 export default Header
 
 const MobileNavIcon = styled(MobileNavIconSvg)`
-  position: absolute;
+  position: fixed;
   top: 2.5rem;
   right: 2rem;
   width: 4rem;
   display: none;
   cursor: pointer;
-  z-index: 10;
+  z-index: 101;
+  transition: opacity 0.3s 0.8s ease;
+  -webkit-tap-highlight-color: transparent;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.hidden {
+    opacity: 0;
+    transition: opacity 0.3s 0s ease;
+    pointer-events: none;
+  }
 
   @media (max-width: 750px) {
     display: block;
+    top: 2.2rem;
   }
 `
 
@@ -102,21 +113,36 @@ const HeaderOuter = styled.div`
   background: transparent;
   z-index: 100;
   transform: translate3d(0, 0, 0);
-  transition: all 250ms ease;
+  transition: transform 250ms ease, padding 250ms ease, background 250ms ease;
   will-change: transform;
-  background: ${props => props.theme.colours.primary};
+  background: ${props => props.theme.colours.gradientStart};
+
+  @media (max-width: 750px) {
+    padding: 1.5rem 3rem;
+  }
 
   &.hidden {
     transform: translate3d(0, -100%, 0);
-    transition: mdc-animation-enter(transform, 200ms);
+    transition: transform 250ms ease, padding 250ms ease, background 250ms ease;
+
+    @media (max-width: 750px) {
+      transform: translate3d(0, 0, 0);
+    }
   }
 
   &[data-top='not-top'] {
     padding: 1rem 3rem;
+    transition: transform 250ms ease, padding 250ms ease, background 250ms 250ms ease;
+
+    @media (max-width: 750px) {
+      padding: 1.5rem 3rem;
+    }
   }
 
-  @media (max-width: 750px) {
-    padding: 2rem 3rem;
+  &[data-top='top'] {
+    background: transparent;
+    transform: translate3d(0, 0, 0);
+    transition: transform 250ms ease, padding 250ms ease, background 0ms ease;
   }
 `
 

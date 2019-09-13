@@ -76,6 +76,7 @@ const QuoteMarkOpen = styled(motion.span)`
   position: absolute;
   top: -1rem;
   left: -2rem;
+  width: 3.2rem;
 
   @media (max-width: 750px) {
     display: none;
@@ -91,6 +92,7 @@ const QuoteMarkClose = styled(motion.span)`
   position: absolute;
   bottom: -2rem;
   right: 3rem;
+  width: 3.2rem;
 
   @media (max-width: 750px) {
     display: none;
@@ -150,12 +152,22 @@ const Outer = styled(motion.section)`
         display: block;
         top: -7rem;
         left: -1rem;
+
+        @media (max-width: 750px) {
+          top: -7rem;
+          left: 2.5rem;
+        }
       }
 
       ${QuoteMarkClose} {
         display: block;
         bottom: -10rem;
         right: -1rem;
+
+        @media (max-width: 750px) {
+          bottom: -7rem;
+          right: 2.5rem;
+        }
       }
     }
 

@@ -60,7 +60,7 @@ const Social = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  bottom: 10%;
+  bottom: 15%;
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -102,7 +102,7 @@ const Outer = styled(motion.aside)`
 
 const Nav = styled.nav`
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   pointer-events: all;
@@ -122,9 +122,10 @@ const Nav = styled.nav`
   a {
     font-size: 10vw;
     line-height: 1.5;
+    font-weight: 700;
     text-decoration: none;
     color: #fff;
-    padding-bottom: 0.8rem;
+    padding-bottom: 0.3rem;
     border-bottom: 0.2rem solid transparent;
 
     &.active {
@@ -135,7 +136,7 @@ const Nav = styled.nav`
 
 const Close = styled(motion.button)`
   position: absolute;
-  top: 3rem;
+  top: 2.5rem;
   right: 2rem;
   right: 2rem;
   width: 3rem;
@@ -145,6 +146,7 @@ const Close = styled(motion.button)`
   will-change: transform;
   z-index: 10;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 
   &:focus {
     outline: 0;

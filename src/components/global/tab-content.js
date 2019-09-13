@@ -98,6 +98,10 @@ const TabContentItem = styled(motion.div)`
       background-color: ${props => props.theme.colours.secondary};
       background: linear-gradient(0deg, ${props => props.theme.colours.gradientEnd} 0%, ${props => props.theme.colours.gradientStart} 100%);
       z-index: 1;
+
+      @media (max-width: 750px) {
+        display: none;
+      }
     }
 
     > div {

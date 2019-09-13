@@ -93,8 +93,7 @@ const ImageContainer = styled(motion.div)`
     z-index: -1;
 
     @media (max-width: 750px) {
-      top: 1rem;
-      left: -1rem;
+      display: none;
     }
   }
 `

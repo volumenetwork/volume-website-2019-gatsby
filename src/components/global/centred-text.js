@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { graphql } from 'gatsby'
 import styled from 'styled-components'
+import { Waypoint } from 'react-waypoint'
+import { motion } from 'framer-motion'
+import { fadeInUp } from '../../animation/animations'
 
 export const fragment = graphql`
   fragment CentredTextFragment on WordPressAcf_centred_text {
@@ -9,19 +12,27 @@ export const fragment = graphql`
   }
 `
 
-const CentredText = ({ text }) => (
-  <Outer className="Outer">
-    <Inner>
-      <p>{text}</p>
-    </Inner>
-  </Outer>
-)
+const CentredText = ({ text }) => {
+  const [animation, setAnimation] = useState(false)
+  const handleActive = () => setAnimation(true)
+
+  return (
+    <Outer className="Outer">
+      <Waypoint onEnter={() => handleActive()} scrollableAncestor="window" bottomOffset="10%" />
+      <Inner>
+        <motion.p animate={animation ? 'visible' : 'hidden'} variants={fadeInUp}>
+          {text}
+        </motion.p>
+      </Inner>
+    </Outer>
+  )
+}
 
 export default CentredText
 
 const Outer = styled.section`
   background: ${props => props.theme.colours.blueBackground};
-  padding: 12.5rem;
+  padding: 12.5rem 3rem;
 `
 
 const Inner = styled.div`

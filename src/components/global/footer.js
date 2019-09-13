@@ -25,19 +25,22 @@ const Footer = ({ data }) => (
                 <Link to={`/${item.object_slug}`} activeClassName="active">
                   {item.title}
                 </Link>
+                {item.wordpress_children &&
+                  item.wordpress_children.map((subitem, key) => (
+                    <ul key={key}>
+                      <li>
+                        <Link to={subitem.url}>{subitem.title}</Link>
+                      </li>
+                    </ul>
+                  ))}
               </li>
             ))}
           </ul>
         </Nav>
-        <Offices>
-          {data.wordpressAcfOptions.global_options.offices.map((office, i) => (
-            <p key={i}>
-              <strong>{office.title}</strong>
-              <br />
-              {office.phone_number}
-            </p>
-          ))}
-        </Offices>
+        <Phone>
+          <p>Get in touch</p>
+          <p>{data.wordpressAcfOptions.global_options.phone_number}</p>
+        </Phone>
       </FooterTop>
       <FooterBottom>
         <SocialCopyright>
@@ -50,7 +53,7 @@ const Footer = ({ data }) => (
             </SocialIcon>
           </SocialWrap>
           <p>
-            <span>© {new Date().getFullYear()} Volume. All Rights Reserved</span>
+            <span>&copy; {new Date().getFullYear()} Volume. All Rights Reserved</span>
           </p>
         </SocialCopyright>
         <Kota>
@@ -72,6 +75,10 @@ export default props => (
           items {
             title
             object_slug
+            wordpress_children {
+              title
+              url
+            }
           }
         }
         wordpressAcfOptions {
@@ -81,6 +88,7 @@ export default props => (
               title
               phone_number
             }
+            phone_number
           }
         }
       }
@@ -95,7 +103,7 @@ const PageFooter = styled.footer`
   background: linear-gradient(187deg, ${props => props.theme.colours.gradientStart} 0%, ${props => props.theme.colours.gradientEnd} 100%);
   color: #fff;
   padding: 6.5rem 0 8rem;
-  z-index: 2;
+  z-index: 1;
 
   @media (max-width: 1000px) {
     padding: 3rem 0 4rem;
@@ -106,7 +114,10 @@ const FooterTop = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  align-items: center;
+
+  @media (max-width: 850px) {
+    justify-content: space-between;
+  }
 
   svg {
     width: 9.4rem;
@@ -115,11 +126,13 @@ const FooterTop = styled.div`
 `
 
 const FooterLogoWrap = styled.div`
-  width: auto;
+  width: 10%;
+  margin-right: 5%;
+  transform: translateY(-4%);
 
-  @media (max-width: 850px) {
+  @media (max-width: 650px) {
     width: 50%;
-    margin-bottom: 3rem;
+    margin: 0;
   }
 `
 
@@ -142,6 +155,7 @@ const Kota = styled.div`
     align-items: center;
     text-decoration: none;
     color: #fff;
+    -webkit-tap-highlight-color: transparent;
 
     @media (max-width: 850px) {
       transform: translateY(25%);
@@ -160,86 +174,83 @@ const Kota = styled.div`
 `
 
 const Nav = styled.nav`
-  margin-left: 10rem;
-  transform: translateY(1rem);
+  display: flex;
+  width: 60%;
 
-  @media (max-width: 850px) {
+  @media (max-width: 950px) {
+    width: 70%;
+  }
+
+  @media (max-width: 650px) {
     width: 50%;
-    margin: 0 0 3rem;
   }
 
   ul {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
-    width: 24rem;
+    flex-wrap: wrap;
+    width: 100%;
     list-style-type: none;
     margin: 0;
 
-    @media (max-width: 400px) {
-      width: auto;
+    ul {
+      @media (max-width: 650px) {
+        display: none;
+      }
+
+      a {
+        opacity: 0.5;
+      }
     }
   }
 
   li {
     margin: 0 0 1.5rem;
-    width: 45%;
 
-    @media (max-width: 400px) {
-      width: 42%;
+    @media (max-width: 650px) {
+      width: 50%;
     }
   }
 
   a {
+    display: block;
     font-size: 1.4rem;
     font-weight: 700;
     text-decoration: none;
     color: #fff;
-    border-bottom: 0.2rem solid transparent;
-    padding-bottom: 0.3rem;
-
-    &.active {
-      border-bottom: 0.2rem solid #fff;
-    }
+    margin-bottom: 2rem !important;
+    -webkit-tap-highlight-color: transparent;
   }
 `
 
-const Offices = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+const Phone = styled.div`
+  width: 20%;
+  text-align: right;
   margin-left: auto;
-  max-width: 38.5rem;
-  transform: translateY(1.5rem);
 
-  @media (max-width: 850px) {
+  @media (max-width: 950px) {
     width: 100%;
-    max-width: 9999px;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 650px) {
+    text-align: left;
   }
 
   p {
     color: #fff;
-    font-size: 1.4rem;
     line-height: 1.65;
 
-    @media (max-width: 850px) {
-      width: 50%;
+    &:first-child {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
     }
 
-    &:nth-child(odd) {
-      width: 40%;
-
-      @media (max-width: 850px) {
-        width: 50%;
-      }
-    }
-
-    &:nth-child(even) {
-      margin-left: 8.5rem;
-
-      @media (max-width: 850px) {
-        margin: 0;
-      }
+    &:last-child {
+      font-size: 1.8rem;
+      font-weight: 300;
+      margin: 0;
     }
   }
 `

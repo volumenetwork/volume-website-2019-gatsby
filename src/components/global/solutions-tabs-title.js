@@ -60,6 +60,7 @@ const ActiveLine = styled(motion.div)`
   width: 10rem;
   height: 0.2rem;
   background: #fff;
-  transform: translate(12rem, 50%);
+  transform: translate(12rem, 50%) scaleY(0);
+  transform-origin: center left;
   right: 0;
 `

@@ -10,9 +10,9 @@ const Transition = ({ mounted }) => {
       y: ['-100%', '-0.01%', '0.01%', '100%'],
       transition: {
         type: 'tween',
-        times: [0, 0.2, 0.8, 1],
+        times: [0, 0.3, 0.7, 1],
         duration: 1,
-        ease: ['circOut', 'circOut', 'circIn', 'circIn']
+        ease: [0.62, 0, 0.34, 0.99]
       }
     },
     hidden: {
@@ -29,8 +29,8 @@ const Transition = ({ mounted }) => {
       opacity: [0, 0, 0.2, 0.2, 0, 0],
       transition: {
         type: 'tween',
-        times: [0, 0.05, 0.15, 0.85, 0.95, 1],
-        duration: 1,
+        times: [0, 0.05, 0.15, 0.55, 0.55, 1],
+        duration: 1.5,
         ease: 'linear'
       }
     },
@@ -71,8 +71,8 @@ const LogoContainer = styled(motion.div)`
 const Logo = styled(LogoSvg)`
   position: fixed;
   top: 50%;
-  width: 60rem;
-  height: 60rem;
+  width: 40vw;
+  height: 40vw;
   transform: translateY(-50%);
   opacity: 0.3;
 `
