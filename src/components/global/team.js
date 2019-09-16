@@ -13,7 +13,6 @@ export const fragment = graphql`
   fragment TeamFragment on WordPressAcf_team {
     id
     title
-    hide
     people {
       biography
       name
@@ -31,7 +30,7 @@ export const fragment = graphql`
   }
 `
 
-const Team = ({ title, people, hide }) => {
+const Team = ({ title, people }) => {
   const [modalActive, setModalActive] = useState(false)
   const [modalPhoto, setModalPhoto] = useState(undefined)
   const [modalName, setModalName] = useState(undefined)
@@ -57,20 +56,6 @@ const Team = ({ title, people, hide }) => {
 
   return (
     <>
-      <Outer className="Outer" data-hidden={hide ? 'hidden' : 'visible'}>
-        <Waypoint onEnter={() => handleAnimation()} scrollableAncestor="window" bottomOffset="10%" />
-        <Inner className="container">
-          <Title>{title}</Title>
-          <People initial="hidden" animate={animation ? 'visible' : 'hidden'} variants={staggeredFadeInUp.parent}>
-            {people.map((person, i) => (
-              <Person onClick={() => handleModalOpen(person)} key={i} variants={staggeredFadeInUp.child}>
-                <Photo fluid={person.photo.localFile.childImageSharp.fluid} className="aspect" />
-              </Person>
-            ))}
-          </People>
-        </Inner>
-      </Outer>
-
       <AnimatePresence>
         {modalActive && (
           <ModalOuter>

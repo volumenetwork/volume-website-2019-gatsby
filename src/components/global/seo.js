@@ -26,15 +26,6 @@ export const fragment = graphql`
       yoast_wpseo_social_defaults {
         twitter_card_type
         twitter_site
-        og_default_image {
-          localFile {
-            childImageSharp {
-              original {
-                src
-              }
-            }
-          }
-        }
       }
     }
   }
@@ -59,7 +50,6 @@ function SEO({
   const facebookTitle = yoastFacebookTitle || yoastTitle || title
   const facebookDescription = yoastFacebookDescription || yoastDescription || ''
   const facebookType = yoastFacebookType || 'website'
-  const facebookImage = yoastFacebookImage ? yoastFacebookImage.localFile.childImageSharp.original.src : yoast_wpseo_social_defaults.og_default_image.localFile.childImageSharp.original.src
   const twitterTitle = yoastTwitterTitle || yoastTitle || title
   const twitterDescription = yoastTwitterDescription || yoastDescription || ''
   const twitterHandle = yoast_wpseo_social_defaults.twitter_site || ''
@@ -78,10 +68,6 @@ function SEO({
         {
           property: `og:description`,
           content: facebookDescription
-        },
-        {
-          property: `og:image`,
-          content: facebookImage
         },
         {
           property: `og:type`,
