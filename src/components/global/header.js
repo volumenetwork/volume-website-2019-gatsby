@@ -57,7 +57,7 @@ const Header = () => {
         </HeadingLink>
         <HeaderNavigation />
         <HeaderRight>
-          <Phone>020 7492 1959</Phone>
+          <Phone>020 3868 9488</Phone>
           <SocialIcon target="_blank" href="https://www.linkedin.com/company/volume-network/" rel="noopener noreferrer">
             <Linkedin />
           </SocialIcon>
