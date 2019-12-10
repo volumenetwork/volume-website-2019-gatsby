@@ -66,6 +66,12 @@ module.exports = {
         }
       }
     },
+    {
+      resolve: 'gatsby-plugin-google-analytics',
+      options: {
+       trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID || "none",
+      }
+    },
   ],
   mapping: {
     'wordpress__PAGE.acf.hero.button_link': `wordpress__PAGE.wordpress_id`,
