@@ -65,7 +65,7 @@ module.exports = {
           include: /images/
         }
       }
-    }
+    },
     {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
