@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, StaticQuery, graphql } from 'gatsby'
 import styled from 'styled-components'
+import Spanish from '../../images/es_ES.svg'
 
 const HeaderNavigation = ({ data }) => (
   <Nav>
@@ -12,6 +13,11 @@ const HeaderNavigation = ({ data }) => (
           </Link>
         </li>
       ))}
+      <li>
+        <Flag target="_blank" href="https://www.volumenetwork.es" rel="noopener noreferrer">
+           <Spanish />
+        </Flag>
+      </li>
     </ul>
   </Nav>
 )
@@ -82,4 +88,14 @@ const Nav = styled.nav`
       }
     }
   }
+`
+
+
+const Flag = styled.a`
+
+svg {
+  width: 3.6rem;
+  height: 3.6rem;
+}
+
 `
