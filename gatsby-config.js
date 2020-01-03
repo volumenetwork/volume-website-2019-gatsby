@@ -65,7 +65,7 @@ module.exports = {
           include: /images/
         }
       }
-    },
+    }
   ],
   mapping: {
     'wordpress__PAGE.acf.hero.button_link': `wordpress__PAGE.wordpress_id`,
