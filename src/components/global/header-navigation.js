@@ -90,7 +90,10 @@ const Nav = styled.nav`
   }
 `
 
-const Flag = styled.div`
+const Flag = styled.a`
   border: 1px solid black;
-  width: 100%;
+  
+  svg {
+    width: 100%;
+  }
 `
