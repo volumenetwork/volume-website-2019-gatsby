@@ -92,8 +92,9 @@ const Nav = styled.nav`
 
 const Flag = styled.a`
   border: 1px solid black;
-  
+
   svg {
-    width: 100%;
+    width: 1.6rem;
+    height: 1.6rem;
   }
 `
