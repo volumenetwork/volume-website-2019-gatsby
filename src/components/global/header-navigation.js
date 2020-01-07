@@ -14,9 +14,9 @@ const HeaderNavigation = ({ data }) => (
         </li>
       ))}
       <li>
-        <Flag target="_blank" href="https://www.volumenetwork.es" rel="noopener noreferrer">
+        <a target="_blank" href="https://www.volumenetwork.es" rel="noopener noreferrer">
            <Spanish />
-        </Flag>
+        </a>
       </li>
     </ul>
   </Nav>
@@ -87,14 +87,5 @@ const Nav = styled.nav`
         transform: scaleX(1);
       }
     }
-  }
-`
-
-const Flag = styled.a`
-  border: 1px solid black;
-
-  svg {
-    width: 1.6rem;
-    height: 1.6rem;
   }
 `
