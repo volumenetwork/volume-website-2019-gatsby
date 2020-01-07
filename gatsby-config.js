@@ -66,6 +66,13 @@ module.exports = {
         }
       }
     },
+    {
+       resolve: `gatsby-plugin-google-analytics`,
+       options: {
+         // replace "UA-XXXXXXXXX-X" with your own Tracking ID
+         trackingId: "UA-154113422-1",
+       },
+    },
   ],
   mapping: {
     'wordpress__PAGE.acf.hero.button_link': `wordpress__PAGE.wordpress_id`,
