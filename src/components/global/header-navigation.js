@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, StaticQuery, graphql } from 'gatsby'
 import styled from 'styled-components'
+import Spanish from '../../images/es_ES.svg'
 
 const HeaderNavigation = ({ data }) => (
   <Nav>
@@ -12,6 +13,11 @@ const HeaderNavigation = ({ data }) => (
           </Link>
         </li>
       ))}
+      <li>
+        <a target="_blank" href="https://www.volumenetwork.es" rel="noopener noreferrer">
+           <Spanish />
+        </a>
+      </li>
     </ul>
   </Nav>
 )

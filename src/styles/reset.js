@@ -31,8 +31,8 @@ export function resetStyles() {
     display: inline-block;
   }
   audio:not([controls]) {
-    display: none;
-    height: 0;
+    display: inline-block;
+    height: 10;
   }
   progress {
     vertical-align: baseline;
