@@ -12,7 +12,7 @@ const Bugheard = () => (
         s.parentNode.insertBefore(bh, s);
         })(document, 'script');
       `}
-    </script>
+    </script>§
   </Helmet>
 )
 
