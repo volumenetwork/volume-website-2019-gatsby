@@ -41,7 +41,3 @@ npm run start
 
 The site will be hosted locally though this link:
 http://localhost:8000/
-
-
-
-
